@@ -29,7 +29,6 @@ public class MyPageViewHandler {
             // view 객체에 이벤트의 Value 를 set 함
             myPage.setId(orderPlaced.getId());
             myPage.setStatus("주문됨");
-            myPage.setStatus("주문됨");
             // view 레파지 토리에 save
             myPageRepository.save(myPage);
 
@@ -82,46 +81,6 @@ public class MyPageViewHandler {
         try {
             if (!orderRejected.validate()) return;
                 // view 객체 조회
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
-    public void whenOrderAccepted_then_UPDATE_4(@Payload OrderAccepted orderAccepted) {
-        try {
-            if (!orderAccepted.validate()) return;
-                // view 객체 조회
-            Optional<MyPage> myPageOptional = myPageRepository.findById(Long.valueOf(orderAccepted.getOrderId()));
-
-            if( myPageOptional.isPresent()) {
-                 MyPage myPage = myPageOptional.get();
-            // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("접수됨");    
-                // view 레파지 토리에 save
-                 myPageRepository.save(myPage);
-                }
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    @StreamListener(KafkaProcessor.INPUT)
-    public void whenOrderRejected_then_UPDATE_5(@Payload OrderRejected orderRejected) {
-        try {
-            if (!orderRejected.validate()) return;
-                // view 객체 조회
-            Optional<MyPage> myPageOptional = myPageRepository.findById(Long.valueOf(orderRejected.getOrderId()));
-
-            if( myPageOptional.isPresent()) {
-                 MyPage myPage = myPageOptional.get();
-            // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("거부됨");    
-                // view 레파지 토리에 save
-                 myPageRepository.save(myPage);
-                }
-
 
         }catch (Exception e){
             e.printStackTrace();
